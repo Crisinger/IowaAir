@@ -10,9 +10,9 @@ public class AccountFunctions
         try {
             boolean working = false;
             connection = OpenDatabase();
-            //CreateTable(connection);
-            //AddRecord(connection);
-            working = checkLogin(connection,"crisinger13@gmail.com","charlie1");
+            //CreateAccountsTable(connection);
+            //AddRecord(connection, 2,"test@gmail.com","test");
+            working = checkLogin(connection,"test@gmail.com","test");
             System.out.println(working);
         } catch(Exception e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class AccountFunctions
     }
 
 
-    public static void CreateTable(Connection con)
+    public static void CreateAccountsTable(Connection con)
     {
         Connection c = con;
         Statement stmt = null;
@@ -55,7 +55,7 @@ public class AccountFunctions
     }
 
 
-    public static void AddRecord(Connection con)
+    public static void AddRecord(Connection con,int id, String email, String password)
     {
         Connection c = con;
         Statement stmt = null;
@@ -66,12 +66,12 @@ public class AccountFunctions
 
             stmt = c.createStatement();
             String sql = "INSERT INTO ACCOUNTS (ID,EMAIL,PASSWORD) " +
-                    "VALUES (1, 'crisinger13@gmail.com', 'charlie1');";
+                    "VALUES ( '" + id + "' , '" + email + "' , '" + password + "' );";
             stmt.executeUpdate(sql);
 
             stmt.close();
             c.commit();
-            c.close();
+            //c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
